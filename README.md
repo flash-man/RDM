@@ -1,4 +1,4 @@
 RDM
 ===
 
-Remote device management
+Remote device management. Project v0.1
