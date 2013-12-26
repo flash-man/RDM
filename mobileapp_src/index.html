@@ -10,7 +10,6 @@
     -o-user-select: none;
     user-select: none;
 }
-/* Arrow only buttons in the header. */
 #demo-page .ui-header .ui-btn {
     background: none;
     border: none;
@@ -19,7 +18,6 @@
 #demo-page .ui-header .ui-btn-inner {
     border: none;
 }
-/* Content styling. */
 dl { font-family: "Times New Roman", Times, serif; padding: 1em; }
 dt { font-size: 2em; font-weight: bold; }
 dt span { font-size: .5em; color: #777; margin-left: .5em; }
@@ -29,20 +27,21 @@ dd { font-size: 1.25em; margin: 1em 0 0; padding-bottom: 1em; border-bottom: 1px
 	<title>My Page</title> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0-beta.1/jquery.mobile-1.3.0-beta.1.min.css" />
+
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.3.0-beta.1/jquery.mobile-1.3.0-beta.1.min.js"></script>
 </head> 
 <body> 
 
-<div data-role="page" id="demo-page" data-theme="d" data-url="demo-page">
+<div data-role="page" id="demo-page" data-theme="d" data-url="">
     <div data-role="header" data-theme="b">
         <h1>Launchpad</h1>
-        <a href="#left-panel" data-theme="d" data-icon="arrow-r" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc">Open left panel</a>
     </div><!-- /header -->
     <div data-role="content">
         <dl>
-        <form action="http://bezpeka-ntc.com/test/submit.php" method="post" id="comand_form">
+        <form action="" method="post" id="comand_form">
 				<fieldset data-role="controlgroup">
+				<input type="text"name="test">
 					<legend><dd>Виберіть дію:</dd></legend>
 						<input type="radio" name="radio-choice" id="radio-choice-0" value="0" checked="checked" />
 				     	<label for="radio-choice-0">Виключити</label>
@@ -52,55 +51,42 @@ dd { font-size: 1.25em; margin: 1em 0 0; padding-bottom: 1em; border-bottom: 1px
 
 				     	<input type="radio" name="radio-choice" id="radio-choice-2" value="2"  />
 				     	<label for="radio-choice-2">Світити</label>
+
+				     	<input type="radio" name="radio-choice" id="radio-choice-3" value="9"  />
+				     	<label for="radio-choice-3">Продовжити дію</label>
 				     	
-				     	<label for="user_comand"><dd>Команда керування</dd></label>
-						<input type="text" name="user_comand" id="user_comand" value=""/>
+				     	<p><dd>Команда керування: </dd></p>
+
+						<label for="radio-choice-4">green_on</label>
+				     	<input type="radio" name="user_comand" id="radio-choice-4" value="green_on"  />
+				     	<label for="radio-choice-5">green_off</label>
+				     	<input type="radio" name="user_comand" id="radio-choice-5" value="green_off"  />
 				</fieldset>
 
-
-			   <input type="submit" name="submit" id="button" value="Відправити" class="back-btn">
+			   <input type="submit" name="submit"id="button" value="Відправити" class="back-btn">
 
 			</form>
+			<div id="result">
+				
+			</div>
         </dl>
     </div><!-- /content -->
-    <div data-role="panel" id="left-panel" data-theme="b">
-        <p>Панель керування</p>
-        <a href="#" data-rel="close" data-role="button" data-mini="true" data-inline="true" data-icon="delete" data-iconpos="right">Close</a>
-        <form>
-        	<fieldset data-role="controlgroup">
-				<legend><dd>Login on server </dd></legend>
-					<label for="user_email">email</label>
-					<input type="text" name="user_email" id="user_email" value=""/>
-					<label for="user_password">password</label>
-				    <input type="password" name="user_password" id="user_password" value=""  />
-  				    <input type="submit" name="submit" id="user_submit" value="Login"  />
-				</fieldset>
-        </form>
-    </div><!-- /panel -->
+    
 </div>
-<script type="text/javascript">
-	$( document ).on( "pageinit", "#demo-page", function() {
-    $( document ).on( "swiperight", "#demo-page", function( e ) {
-        if ( $.mobile.activePage.jqmData( "panel" ) !== "open" ) {
-             if ( e.type === "swiperight" ) {
-                $( "#left-panel" ).panel( "open" );
-            }
-        }
-    });
-});
 </script>
 <script type="text/javascript">
 	$('#comand_form').submit(function(e){
 		e.preventDefault();
 		var m_method=$(this).attr('method');
-		var m_action=$(this).attr('action');
+		var m_action='http://myhost/test/submit.php';
 		var m_data=$(this).serialize();
 		$.ajax({
 			type: m_method,
 			url: m_action,
 			data: m_data,
 		success: function(result){
-			$('#comand_form').html(result);
+			$("#result").empty();
+			$("#result").append(html);
 		}
 		});
 		});
